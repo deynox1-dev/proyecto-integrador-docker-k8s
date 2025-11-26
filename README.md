@@ -14,7 +14,7 @@
 
 **Ambiente utilizado:**
 - [VirtualBox / VMware / AWS / GCP / Azure / DigitalOcean]
-- Nombre de VM/Instancia: [tu-nombre-completo-k8s]
+- Nombre de VM/Instancia: [david-apaza-k8s]
 - Sistema operativo: Ubuntu 24.04 LTS
 - Recursos: 4GB RAM, 2 CPU cores
 - Red configurada: [NAT/Bridged o tipo de red en cloud]
@@ -28,13 +28,26 @@
 ![Identidad del ambiente validada.	](screenshots/parte1.virtualizador.png)
 
 ## Parte 2: Backend v2.1
-[Descripción de cambios realizados]
+Descripción de cambios realizados:
+En esta versión se agregó el endpoint /api/info, el cual devuelve información útil del sistema como el nombre del alumno, la versión actual, el curso, la fecha y hora del servidor y el hostname del contenedor. También se actualizó la versión del backend a v2.1 e incorporaron pequeñas mejoras internas para facilitar su funcionamiento en entornos Docker y Kubernetes.
 
 ### Código Agregado
-[Snippet del endpoint /api/info]
+- @GetMapping("/api/info")
+- public ResponseEntity<Map<String, Object>> getInfo() {
+-     Map<String, Object> info = new HashMap<>();
+-     info.put("alumno", "TU NOMBRE COMPLETO");
+-     info.put("version", "v2.1");
+-     info.put("curso", "Docker & Kubernetes - i-Quattro");
+-     info.put("timestamp", LocalDateTime.now().toString());
+-     info.put("hostname", System.getenv("HOSTNAME"));
+-     return ResponseEntity.ok(info);
+- }
+
 
 ### Screenshots
-![Docker build](screenshots/parte2-docker-build.png)
+![Código del endpoint agregado ](screenshots/parte2.endPointAgregado.png)
+![Docker build](screenshots/parte2.dockerImages.png)
+![Docker hub images](screenshots/parte2.HubDocker.png)
 ![Rollout](screenshots/parte2-rollout.png)
 ![API Info](screenshots/parte2-api-info.png)
 
